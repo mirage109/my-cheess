@@ -24,7 +24,23 @@ export class Board {
   public getCell(x: number, y: number): Cell {
     return this.cells[y][x];
   }
-  
+
+  public getCopyBoard(): Board {
+    const newBoard = new Board();
+    newBoard.cells = this.cells;
+    return newBoard;
+  }
+
+  public hightligthCells(selectedCell: Cell | null) {
+    for (let i = 0; i < 8; i++) {
+      const row = this.cells[i];
+      for (let j = 0; j < 8; j++) {
+        const target = row[j];
+        target.available = !!selectedCell?.figure?.canMove(target);
+      }
+    }
+  }
+
   private addFiguresToRow(color: Colors, row: number, backRow: number) {
     const figures = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook];
     for (let i = 0; i < 8; i++) {

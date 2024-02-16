@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Board } from "../moduls/Board";
 import React from "react";
 import { CellComponent } from "./CellComponent";
@@ -14,7 +14,23 @@ export const BoardComponent: FC<BoardComponentProps> = ({
 }) => {
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
   function handleClick(cell: Cell) {
-    setSelectedCell(cell);
+    if (cell.figure) {
+      setSelectedCell(cell);
+    }
+  }
+
+  useEffect(() => {
+    hightlightAvailableCells();
+  }, [selectedCell]);
+
+  function hightlightAvailableCells() {
+    board.hightligthCells(selectedCell)
+    updateBoard();
+  }
+
+  function updateBoard() {
+    const newBoard = board.getCopyBoard();
+    setBoard(newBoard);
   }
   return (
     <div className="board">

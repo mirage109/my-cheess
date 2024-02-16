@@ -37,3 +37,9 @@
 .selected{
     border: 4px solid #304dad;
 } 
+.available{
+  height: 10%;
+  width: 10%;
+  background-color: #304dad;
+  border-radius: 50%;
+}
